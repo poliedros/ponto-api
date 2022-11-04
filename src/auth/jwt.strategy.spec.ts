@@ -18,6 +18,7 @@ describe('JwtStrategy', () => {
       id: payload.id,
       username: payload.username,
       roles: [Role.Admin],
+      notionUserId: '1',
     });
   });
 });
