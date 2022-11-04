@@ -29,6 +29,7 @@ describe('UserController', () => {
       username: 'carlos',
       password: 'changeme',
       roles: [Role.Admin],
+      notionUserId: '1',
     };
     const result = await controller.create(createUserDto);
 

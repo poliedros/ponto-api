@@ -66,6 +66,7 @@ describe('User Service', () => {
       username: 'carlos',
       password: 'changeme',
       roles: [Role.Admin],
+      notionUserId: '1',
     };
 
     newUserModelMockFn.mockReturnValue({

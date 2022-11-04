@@ -10,4 +10,7 @@ export class CreateUserRequest {
 
   @ApiProperty()
   roles: Role[];
+
+  @ApiProperty()
+  notionUserId: string;
 }

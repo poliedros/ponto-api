@@ -8,12 +8,14 @@ export type UserValidation = {
   id: string;
   username: string;
   roles: Role[];
+  notionUserId: string;
 };
 
 export type Payload = {
   username: string;
   sub: string;
   roles: Role[];
+  notionUserId: string;
 };
 
 @Injectable()
@@ -48,6 +50,7 @@ export class AuthService {
       username: user.username,
       sub: user.id,
       roles: user.roles,
+      notionUserId: user.notionUserId,
     };
 
     return {

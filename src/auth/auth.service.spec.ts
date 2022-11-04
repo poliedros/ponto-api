@@ -48,6 +48,7 @@ describe('AuthService', () => {
       username: 'carlos',
       password: 'test',
       roles: [Role.Admin],
+      notionUserId: '1',
     };
 
     findOneMockFn.mockReturnValue(Promise.resolve(user));
@@ -74,6 +75,7 @@ describe('AuthService', () => {
       id: '3',
       username: 'carlos',
       roles: [Role.Admin],
+      notionUserId: '1',
     });
 
     expect(token).toEqual({ access_token: '3a' });

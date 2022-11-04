@@ -11,6 +11,7 @@ describe('JwtStrategy', () => {
       sub: '3',
       username: 'carlos',
       roles: [Role.Admin],
+      notionUserId: '1',
     });
 
     expect(payload).toEqual({
