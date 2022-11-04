@@ -18,7 +18,12 @@ export class TrackingService {
     return false;
   }
 
-  upsertTracking() {
-    throw new NotImplementedException();
+  async upsertTracking(notionUserId: string, date: Date) {
+    const isUserWorking = await this.isUserWorking(notionUserId);
+
+    if (!isUserWorking) await this.notionService.createPage(notionUserId, date);
+    else {
+      await this.notionService.updateEndDate(notionUserId, date);
+    }
   }
 }

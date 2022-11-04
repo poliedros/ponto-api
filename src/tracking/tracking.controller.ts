@@ -1,5 +1,14 @@
+import { TrackWorkRequest } from './dto/track-work-request.dto';
 import { UserJwt } from './../auth/jwt.strategy';
-import { Controller, Post, UseGuards, Request, Logger } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Logger,
+  Body,
+  BadRequestException,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { TrackingService } from './tracking.service';
@@ -11,14 +20,10 @@ export class TrackingController {
 
   constructor(private readonly trackingService: TrackingService) {}
 
-  @Post()
-  create() {
-    // this.trackingService.upsertTracking();
-
-    return { ok: 'ok' };
-  }
-
-  @ApiOperation({ summary: 'Create new user', description: 'forbidden' })
+  @ApiOperation({
+    summary: 'Check if user is working',
+    description: 'forbidden',
+  })
   @ApiBody({})
   @UseGuards(JwtAuthGuard)
   @Post(`/working`)
@@ -27,6 +32,34 @@ export class TrackingController {
 
     this.logger.log(`User ${user.username} is checking if itself is working`);
 
-    return this.trackingService.isUserWorking(user.notionUserId);
+    try {
+      return this.trackingService.isUserWorking(user.notionUserId);
+    } catch (err) {
+      this.logger.error(err);
+    }
+    return new BadRequestException();
+  }
+
+  @ApiOperation({
+    summary: 'Track work',
+    description: 'forbidden',
+  })
+  @ApiBody({ type: TrackWorkRequest })
+  @UseGuards(JwtAuthGuard)
+  @Post(`/track`)
+  async track(@Request() req, @Body() request: TrackWorkRequest) {
+    const user = req.user as UserJwt;
+
+    const date = new Date(request.date);
+    this.logger.log(date.toString());
+
+    try {
+      await this.trackingService.upsertTracking(user.notionUserId, date);
+    } catch (err) {
+      this.logger.error(err);
+      return new BadRequestException();
+    }
+
+    return true;
   }
 }
