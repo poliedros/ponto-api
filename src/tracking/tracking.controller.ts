@@ -33,7 +33,8 @@ export class TrackingController {
     this.logger.log(`User ${user.username} is checking if itself is working`);
 
     try {
-      return this.trackingService.isUserWorking(user.notionUserId);
+      const response = this.trackingService.isUserWorking(user.notionUserId);
+      return response;
     } catch (err) {
       this.logger.error(err);
     }

@@ -1,5 +1,5 @@
 import { NotionService } from './../notion/notion.service';
-import { Injectable, NotImplementedException, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 @Injectable()
