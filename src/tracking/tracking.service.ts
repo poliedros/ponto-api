@@ -20,6 +20,7 @@ export class TrackingService {
 
   async upsertTracking(notionUserId: string, date: Date) {
     const isUserWorking = await this.isUserWorking(notionUserId);
+    this.logger.log(`is user ${notionUserId} working? ${isUserWorking})`);
 
     if (!isUserWorking) await this.notionService.createPage(notionUserId, date);
     else {

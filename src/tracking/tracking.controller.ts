@@ -56,7 +56,6 @@ export class TrackingController {
     const user = req.user as UserJwt;
 
     const date = new Date(request.date);
-    this.logger.log(date.toString());
 
     try {
       await this.trackingService.upsertTracking(user.notionUserId, date);
