@@ -42,7 +42,7 @@ export class TrackingController {
     } catch (err) {
       this.logger.error(err);
     }
-    return new BadRequestException();
+    throw new BadRequestException();
   }
 
   @ApiOperation({
@@ -62,7 +62,7 @@ export class TrackingController {
       await this.trackingService.upsertTracking(user.notionUserId, date);
     } catch (err) {
       this.logger.error(err);
-      return new BadRequestException();
+      throw new BadRequestException();
     }
 
     return true;
