@@ -58,6 +58,8 @@ export class TrackingController {
     const date = new Date(request.date);
 
     try {
+      console.log(user);
+      console.log(date);
       await this.trackingService.upsertTracking(user.notionUserId, date);
     } catch (err) {
       this.logger.error(err);

@@ -12,6 +12,9 @@ export class TrackingService {
     const lastPage = (await this.notionService.getLastPageFromUser(
       notionUserId,
     )) as PageObjectResponse;
+
+    if (!lastPage) return false;
+
     const end = lastPage.properties['Date-Range']['date']['end'];
 
     if (!end) return true;

@@ -1,5 +1,5 @@
 import { NOTION_CLIENT } from './constants';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Client } from '@notionhq/client';
 import {
   PageObjectResponse,
@@ -9,6 +9,8 @@ import { toIsoString } from './helpers';
 
 @Injectable()
 export class NotionService {
+  private readonly logger = new Logger(NotionService.name);
+
   private readonly databaseId = 'c6afe6a8f4a54e90ab62258be283b366';
 
   constructor(@Inject(NOTION_CLIENT) private notionClient: Client) {}
@@ -16,6 +18,8 @@ export class NotionService {
   async getLastPageFromUser(
     userId: string,
   ): Promise<PageObjectResponse | PartialPageObjectResponse> {
+    this.logger.log(`Querying notion database with id ${userId}...`);
+
     const response = await this.notionClient.databases.query({
       database_id: this.databaseId,
       filter: {
