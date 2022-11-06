@@ -10,8 +10,6 @@ describe('User Service', () => {
   const findOneMockFn = jest.fn();
   const newUserModelMockFn = jest.fn();
 
-  beforeEach(() => {});
-
   it('should find user', async () => {
     const module = await Test.createTestingModule({
       providers: [
