@@ -37,6 +37,7 @@ describe('Local Strategy', () => {
   it('should throw unauthorized exception', async () => {
     try {
       await localStrategy.validate('carlos', 'changeme');
+      expect(false).toBeTruthy();
     } catch (e: any) {
       expect(e).toBeInstanceOf(UnauthorizedException);
     }
