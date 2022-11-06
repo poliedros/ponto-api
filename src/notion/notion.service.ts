@@ -44,6 +44,16 @@ export class NotionService {
     await this.notionClient.pages.create({
       parent: { database_id: this.databaseId },
       properties: {
+        Name: {
+          title: [
+            {
+              type: 'text',
+              text: {
+                content: 'PONTO CZAR+ (Automático)',
+              },
+            },
+          ],
+        },
         'Date-Range': {
           date: {
             start: toIsoString(date),
