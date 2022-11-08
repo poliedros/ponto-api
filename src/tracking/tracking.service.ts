@@ -8,7 +8,7 @@ export class TrackingService {
 
   constructor(private readonly notionService: NotionService) {}
 
-  async isUserWorking(notionUserId: string) {
+  async isUserWorking(notionUserId: string): Promise<boolean> {
     const lastPage = (await this.notionService.getLastPageFromUser(
       notionUserId,
     )) as PageObjectResponse;
