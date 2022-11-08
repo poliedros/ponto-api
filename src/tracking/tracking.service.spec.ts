@@ -12,8 +12,8 @@ describe('TrackingService', () => {
     jest.resetAllMocks();
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TrackingService],
       providers: [
+        TrackingService,
         {
           provide: NotionService,
           useValue: {
