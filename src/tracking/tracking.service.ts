@@ -30,4 +30,17 @@ export class TrackingService {
       await this.notionService.updateEndDate(notionUserId, date);
     }
   }
+
+  async lastStartDateFromUser(notionUserId: string): Promise<Date> {
+    const lastPage = (await this.notionService.getLastPageFromUser(
+      notionUserId,
+    )) as PageObjectResponse;
+
+    if (!lastPage) return null;
+
+    const start = lastPage.properties['Date-Range']['date']['start'];
+
+    if (start) return start;
+    return null;
+  }
 }

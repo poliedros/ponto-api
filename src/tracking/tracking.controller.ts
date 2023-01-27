@@ -12,6 +12,7 @@ import {
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { TrackingService } from './tracking.service';
+import { LastStartTimeRequest } from './dto/last-start-time-request-dto';
 
 @ApiTags('tracking')
 @Controller('tracking')
@@ -65,5 +66,28 @@ export class TrackingController {
     }
 
     return true;
+  }
+
+  @ApiOperation({
+    summary: 'Get last page start time from user',
+    description: 'forbidden',
+  })
+  @ApiBody({ type: LastStartTimeRequest })
+  @UseGuards(JwtAuthGuard)
+  @Post(`/lasttime`)
+  async lastStartTimeFromUser(@Request() req) {
+    const user = req.user as UserJwt;
+
+    this.logger.log(`User ${user.username} is getting their last start time`);
+
+    try {
+      const response = await this.trackingService.lastStartDateFromUser(
+        user.notionUserId,
+      );
+      return { date: response };
+    } catch (err) {
+      this.logger.error(err);
+    }
+    throw new BadRequestException();
   }
 }
